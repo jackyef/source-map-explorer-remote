@@ -1,13 +1,13 @@
 {
-  "name": "remote-source-map-explorer",
-  "version": "1.0.2",
-  "description": "Wrapper around source-map-explorer that works with remote URLs",
+  "name": "source-map-coverage",
+  "version": "1.0.0",
+  "description": "Wrapper around source-map-explorer that works with remote URLs and supports chrome code coverage json",
   "bin": {
-    "remote-source-map-explorer": "index.js"
+    "source-map-coverage": "index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lencioni/remote-source-map-explorer.git"
+    "url": "git+https://github.com/jackyef/source-map-coverage.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,13 +17,13 @@
     "browser",
     "minification"
   ],
-  "author": "Joe Lencioni <joe.lencioni@gmail.com>",
+  "author": "Jacky Efendi <jacky.efendi1@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "docopt": "^0.6.2",
     "opn": "^5.3.0",
     "request": "^2.87.0",
-    "source-map-explorer": "^1.6.0",
+    "source-map-explorer": "^2.0.0",
     "temp": "^0.8.3"
   }
 }
