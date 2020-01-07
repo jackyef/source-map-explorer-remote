@@ -1,6 +1,6 @@
 {
   "name": "source-map-coverage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Wrapper around source-map-explorer that works with remote URLs and supports chrome code coverage json",
   "bin": {
     "source-map-coverage": "index.js"

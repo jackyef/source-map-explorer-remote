@@ -100,11 +100,6 @@ get(scriptURL)
         return result;
       })
       .then(result => {
-        console.log({ result });
-        // console.log({ errors: result.errors });
-        // console.log({ bundles: result.bundles });
-        process.exit(123);
-
         const { output } = result;
 
         var tempName = temp.path({ suffix: '.html' });
