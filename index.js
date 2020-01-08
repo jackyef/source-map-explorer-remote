@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
+const os = require('os');
 const { URL } = require('url');
 
 const { docopt } = require('docopt');
 const request = require('request');
-const temp = require('temp');
 const open = require('opn');
-const sourceMapExplorer = require('source-map-explorer');
+
+/**
+ * TODO: Use official one once https://github.com/danvk/source-map-explorer/pull/154 is fixed
+ * */
+const sourceMapExplorer = require('./source-map-explorer/dist');
 
 const { version } = require('./package.json');
 
@@ -18,7 +22,7 @@ const COVERAGE_ARG = '<coverage.json>';
 const doc = `Fetch a remote JavaScript file and its sourcemap, and generate a source-map-explorer visualization. Also supports chrome coverage.json
 
 Usage:
-  source-map-coverage ${URL_ARG} --coverage ${COVERAGE_ARG}
+  source-map-explorer-remote ${URL_ARG} [--coverage ${COVERAGE_ARG}]
 
 Options:
   -h --help  Show this screen.
@@ -27,9 +31,15 @@ Options:
 
 const args = docopt(doc, { version });
 const scriptURL = new URL(args[URL_ARG]);
-const coverageJson = !args[COVERAGE_ARG].startsWith('/')
+const filePath = scriptURL.pathname.split('/');
+const fileName = filePath[filePath.length - 1];
+const coverageJson = args[COVERAGE_ARG] && !args[COVERAGE_ARG].startsWith('/')
   ? path.resolve(process.cwd(), args[COVERAGE_ARG])
   : args[COVERAGE_ARG];
+
+const tempDir = path.join(os.tmpdir(), 'source-map-explorer-remote');
+
+fs.ensureDirSync(tempDir);
 
 // Fetch file and source map
 function get(uri) {
@@ -73,15 +83,21 @@ get(scriptURL)
       lastLine.slice(searchToken.length),
       scriptURL,
     );
-
+    
+    const sourceMapPath = sourceMappingURL.pathname.split('/');
+    const sourceMapName = sourceMapPath[sourceMapPath.length - 1];
+    
     console.log(`Fetching ${sourceMappingURL}...`);
     return get(sourceMappingURL)
       .then(sourceMapBody => {
         console.log('Generating visualization HTML...');
 
-        const tempJs = temp.path({ suffix: '.js' });
+        const tempJs = path.join(tempDir, fileName)
+        fs.ensureDirSync(path.dirname(tempJs));
         fs.writeFileSync(tempJs, scriptBody);
-        const tempMap = temp.path({ suffix: '.js.map' });
+
+        const tempMap = path.join(tempDir, sourceMapName);
+        fs.ensureDirSync(path.dirname(tempMap));
         fs.writeFileSync(tempMap, sourceMapBody);
 
         const result = sourceMapExplorer.explore(
@@ -102,7 +118,7 @@ get(scriptURL)
       .then(result => {
         const { output } = result;
 
-        var tempName = temp.path({ suffix: '.html' });
+        var tempName = path.join(tempDir, 'output.html');
         fs.writeFileSync(tempName, output);
 
         console.log('Opening visualization in browser...');
