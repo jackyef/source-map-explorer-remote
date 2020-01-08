@@ -1,4 +1,5 @@
-## Wrapper around [source-map-explorer](https://github.com/danvk/source-map-explorer) that works with remote URLs.
+## What is this?
+Wrapper around [source-map-explorer](https://github.com/danvk/source-map-explorer) that works with remote URLs and chrome code coverage.
 
 ## Install:
 
@@ -13,6 +14,10 @@ source-map-explorer-remote https://example.com/path/to/bundle-with-sourcemap.min
 ```
 
 Usage with [chrome coverage json](https://twitter.com/chromedevtools/status/1095411723161354240?lang=en): 
+
+```sh
+source-map-explorer-remote https://example.com/path/to/bundle-with-sourcemap.min.js --coverage ./path/to/coverage.json
+```
 
 ## Difference with [remote-source-map-explorer](https://github.com/lencioni/remote-source-map-explorer)
 This package use newer version of `source-map-explorer` that supports chrome code coverage.
