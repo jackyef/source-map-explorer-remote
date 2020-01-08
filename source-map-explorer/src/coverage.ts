@@ -86,8 +86,6 @@ export function addCoverageRanges(bundles: Bundle[], coverageFilename?: string):
 
       return result;
     }, []);
-
-    require('fs').writeFileSync('./coveragePaths.json', JSON.stringify(coveragePaths, null, 2));
     
     coveragePaths.forEach((partsA, coverageIndex) => {
       let matchingBundles = [...bundlesPaths];

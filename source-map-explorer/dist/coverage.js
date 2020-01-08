@@ -97,9 +97,6 @@ function addCoverageRanges(bundles, coverageFilename) {
 
       return result;
     }, []);
-
-    require('fs').writeFileSync('./coveragePaths.json', JSON.stringify(coveragePaths, null, 2));
-
     coveragePaths.forEach((partsA, coverageIndex) => {
       let matchingBundles = [...bundlesPaths]; // Start from filename and go up to path root
 
