@@ -9,10 +9,7 @@ const { docopt } = require('docopt');
 const request = require('request');
 const open = require('opn');
 
-/**
- * TODO: Use official one once https://github.com/danvk/source-map-explorer/pull/154 is fixed
- * */
-const sourceMapExplorer = require('./source-map-explorer/dist');
+const sourceMapExplorer = require('source-map-explorer');
 
 const { version } = require('./package.json');
 
