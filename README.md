@@ -24,7 +24,3 @@ _Example_
 
 ## Difference with [remote-source-map-explorer](https://github.com/lencioni/remote-source-map-explorer)
 This package use newer version of `source-map-explorer` that supports chrome code coverage.
-
-## Note
-This package is using its own patched version of `source-map-explorer` inside the repo. This will be updated once
-[this issue](https://github.com/danvk/source-map-explorer/pull/154) is fixed.

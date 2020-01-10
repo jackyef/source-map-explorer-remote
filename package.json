@@ -1,6 +1,6 @@
 {
   "name": "source-map-explorer-remote",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Wrapper around source-map-explorer that works with remote URLs and supports chrome code coverage json",
   "bin": {
     "source-map-explorer-remote": "index.js"
